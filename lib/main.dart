@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/business_logic/app_states.dart';
 import 'package:transport_app/presentation/screens/home_screen/home_screen.dart';
+import 'package:transport_app/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:transport_app/presentation/screens/start_screen/start_screen.dart';
 import 'package:transport_app/styles/theme_manager/theme_manager.dart';
 
 void main() {
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
               title: 'Transport App',
               theme: getApplicationTheme(context),
               debugShowCheckedModeBanner: false,
-              home: const HomeScreen(),
+              home: const SplashScreen(),
             );
           },
       ),

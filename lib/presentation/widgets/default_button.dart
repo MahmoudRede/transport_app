@@ -20,7 +20,9 @@ class DefaultButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: backGroundColor,
-        shape: const StadiumBorder(),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         minimumSize: Size(width, height),
       ),
       onPressed: onPressed,
