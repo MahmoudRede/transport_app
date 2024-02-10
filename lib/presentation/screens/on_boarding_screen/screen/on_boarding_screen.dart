@@ -91,8 +91,8 @@ class _OnBoardingState extends State<OnBoarding> {
             SizedBox(height: size.height*.03,),
 
             DefaultButton(
-              height: MediaQuery.sizeOf(context).height*.065,
               width: MediaQuery.sizeOf(context).height*.6,
+              height: MediaQuery.sizeOf(context).height * .058,
               backGroundColor: ColorManager.primaryColor,
               content: const Text('Get Started',style: TextStyle(
                 color: ColorManager.white,

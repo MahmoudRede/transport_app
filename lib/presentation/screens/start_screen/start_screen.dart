@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/business_logic/app_states.dart';
-import 'package:transport_app/presentation/screens/on_boarding_screen/screen/on_boarding_screen.dart';
+import 'package:transport_app/presentation/screens/Login_screen/login_screen.dart';
 import 'package:transport_app/presentation/widgets/default_button.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
+
+import '../sign_up_screen/view/sign_up_screen.dart';
 
 class StartScreen extends StatelessWidget {
 
@@ -53,20 +56,24 @@ class StartScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     DefaultButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          Get.to(const SignUpScreen());
+                        },
                         backGroundColor: ColorManager.primaryColor,
-                        height: MediaQuery.sizeOf(context).height*.07,
                         width: MediaQuery.sizeOf(context).width*.4,
+                        height: MediaQuery.sizeOf(context).height * .058,
                         content: const Text('انشاء حساب جديد',style: TextStyle(
                           color: ColorManager.white
                         ),
                     )),
 
                     DefaultButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          Get.to(const LoginScreen());
+                        },
                         backGroundColor: ColorManager.white,
-                        height: MediaQuery.sizeOf(context).height*.07,
                         width: MediaQuery.sizeOf(context).width*.4,
+                        height: MediaQuery.sizeOf(context).height * .058,
                         content: const Text('تسجيل الدخول',style: TextStyle(
                           color: ColorManager.primaryColor
                         ),
