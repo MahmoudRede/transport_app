@@ -119,33 +119,33 @@ class SignUpScreen extends StatelessWidget {
 
                     SizedBox(height: SizeConfig.height * .02,),
 
-                    DefaultTextField(
-                      controller: AppCubit
-                          .get(context)
-                          .signUpPasswordController,
-                      hintText: 'كلمة المرور',
-                      validator: (val) =>"",
-                      isPassword: true,
-                      keyboardType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.next,
-                      onTap: () {},
-                    ),
-
-                    SizedBox(height: SizeConfig.height * .02,),
-
-                    DefaultTextField(
-                      controller: AppCubit
-                          .get(context)
-                          .signUpConfirmPasswordController,
-                      hintText: 'تأكيد كلمة المرور',
-                      validator: (val) =>"",
-                      isPassword: true,
-                      keyboardType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.next,
-                      onTap: () {},
-                    ),
-
-                    SizedBox(height: SizeConfig.height * .02,),
+                    // DefaultTextField(
+                    //   controller: AppCubit
+                    //       .get(context)
+                    //       .signUpPasswordController,
+                    //   hintText: 'كلمة المرور',
+                    //   validator: (val) =>"",
+                    //   isPassword: true,
+                    //   keyboardType: TextInputType.visiblePassword,
+                    //   textInputAction: TextInputAction.next,
+                    //   onTap: () {},
+                    // ),
+                    //
+                    // SizedBox(height: SizeConfig.height * .02,),
+                    //
+                    // DefaultTextField(
+                    //   controller: AppCubit
+                    //       .get(context)
+                    //       .signUpConfirmPasswordController,
+                    //   hintText: 'تأكيد كلمة المرور',
+                    //   validator: (val) =>"",
+                    //   isPassword: true,
+                    //   keyboardType: TextInputType.visiblePassword,
+                    //   textInputAction: TextInputAction.next,
+                    //   onTap: () {},
+                    // ),
+                    //
+                    // SizedBox(height: SizeConfig.height * .02,),
 
                     DefaultTextField(
                       controller: AppCubit
