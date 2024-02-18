@@ -42,7 +42,7 @@ class StartScreen extends StatelessWidget {
                 ),
 
                 Text(
-                  'استمرت رابيت , خدمات توصيل وشحن الطرود',
+                  'سمارت رابيت , خدمات توصيل وشحن الطرود',
                   style: TextStyle(
                       color: ColorManager.grey,
                       fontSize: MediaQuery.sizeOf(context).height*.022,

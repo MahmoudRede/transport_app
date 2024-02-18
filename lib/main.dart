@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/business_logic/app_states.dart';
+import 'package:transport_app/presentation/screens/Login_screen/login_screen.dart';
+import 'package:transport_app/presentation/screens/home_layout/home_layout.dart';
+import 'package:transport_app/presentation/screens/sign_up_screen/view/sign_up_screen.dart';
 import 'package:transport_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:transport_app/styles/theme_manager/theme_manager.dart';
 
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
               title: 'Transport App',
               theme: getApplicationTheme(context),
               debugShowCheckedModeBanner: false,
-              home: const SplashScreen(),
+              home: const LoginScreen(),
             );
           },
       ),

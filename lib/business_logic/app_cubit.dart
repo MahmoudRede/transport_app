@@ -2,6 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transport_app/business_logic/app_states.dart';
+import 'package:transport_app/presentation/screens/profile_screen/profile_screen.dart';
+
+import '../presentation/screens/home_screen/screens/home_screen.dart';
 
 class AppCubit extends Cubit<AppStates>{
 
@@ -23,6 +26,21 @@ class AppCubit extends Cubit<AppStates>{
     changeUserSex(value){
       selectedValue = value;
       emit(ChangeUserSexState());
+    }
+    void setIndex(int value) {
+      currentIndex = value;
+      emit(SetCurrentIndexStates());
+    }
+    int currentIndex = 0;
+    List<Widget> screens = [
+      const HomeScreen(),
+      const ProfileScreen(),
+    ];
+
+    int homeIndex=0;
+    void changeHomeIndex(int index){
+      homeIndex = index;
+      emit(ChangeHomeIndexState());
     }
 
 
