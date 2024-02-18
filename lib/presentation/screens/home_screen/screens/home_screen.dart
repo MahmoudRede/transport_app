@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                       text: 'استلام شحنة',
                     ),
                     Tab(
-                      text: 'إضافة شحنة',
+                      text: 'الشحنات',
                     ),
                   ],
                 ),
