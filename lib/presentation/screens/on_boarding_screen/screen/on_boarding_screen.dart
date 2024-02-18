@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:transport_app/presentation/screens/home_screen/home_screen.dart';
+import 'package:transport_app/presentation/screens/home_screen/screens/home_screen.dart';
 import 'package:transport_app/presentation/screens/on_boarding_screen/widget/pageview_item.dart';
 import 'package:transport_app/presentation/screens/start_screen/start_screen.dart';
 import 'package:transport_app/presentation/widgets/default_button.dart';

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/business_logic/app_states.dart';
+import 'package:transport_app/presentation/screens/home_layout/home_layout.dart';
 import 'package:transport_app/presentation/widgets/custom_pin_put_widget.dart';
 import 'package:transport_app/presentation/widgets/default_button.dart';
 import 'package:transport_app/styles/app_size_config.dart';
@@ -153,7 +156,9 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                           fontWeight: FontWeight.w600
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.offAll(const HomeLayout());
+                      },
                       backGroundColor: ColorManager.black,
                       width: SizeConfig.width,
                       height: SizeConfig.height * .058,

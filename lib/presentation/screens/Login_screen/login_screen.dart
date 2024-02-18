@@ -34,19 +34,23 @@ class LoginScreen extends StatelessWidget {
             body: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: SizeConfig.height * 0.025),
+                padding:
+                    EdgeInsets.symmetric(horizontal: SizeConfig.height * 0.025),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: SizeConfig.height * .03,),
+                    SizedBox(
+                      height: SizeConfig.height * .03,
+                    ),
 
                     Align(
                       alignment: Alignment.center,
                       child: Image(
                         height: SizeConfig.height * 0.25,
                         width: SizeConfig.height * 0.4,
-                        image: const AssetImage('assets/images/smart-logo.jpeg'),
+                        image:
+                            const AssetImage('assets/images/smart-logo.jpeg'),
                       ),
                     ),
 
@@ -77,48 +81,51 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: SizeConfig.height * .05,),
+                    SizedBox(
+                      height: SizeConfig.height * .05,
+                    ),
 
                     /// phone number
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Expanded(flex: 1, child: CountryCodePickerWidget()),
-
-                        SizedBox(width: SizeConfig.height * .005,),
-
+                        const Expanded(
+                            flex: 1, child: CountryCodePickerWidget()),
+                        SizedBox(
+                          width: SizeConfig.height * .005,
+                        ),
                         Expanded(
                           flex: 3,
                           child: DefaultTextField(
-                            onTap: (){},
-                            controller: AppCubit
-                                .get(context)
+                            onTap: () {},
+                            controller: AppCubit.get(context)
                                 .loginPhoneNumberController,
                             hintText: 'أدخل رقم الهاتف',
-                            validator: (value)=>"رقم الهاتف مطلوب",
+                            validator: (value) => "رقم الهاتف مطلوب",
                             keyboardType: TextInputType.phone,
                             textInputAction: TextInputAction.done,
                           ),
                         ),
-
                       ],
                     ),
 
-                    SizedBox(height: SizeConfig.height * .05,),
+                    SizedBox(
+                      height: SizeConfig.height * .05,
+                    ),
 
                     /// Login button
                     DefaultButton(
                       onPressed: () {
-                        Get.to(const VerifyPhoneScreen(verificationId: "", phoneNumber: "", id: 1));
+                        Get.to(const VerifyPhoneScreen(
+                            verificationId: "", phoneNumber: "", id: 1));
                       },
                       content: Text(
                         "تسجيل الدخول",
                         style: TextStyle(
-                          color: ColorManager.white,
-                          fontSize: SizeConfig.headline5Size,
-                          fontWeight: FontWeight.w600
-                        ),
+                            color: ColorManager.white,
+                            fontSize: SizeConfig.headline5Size,
+                            fontWeight: FontWeight.w600),
                       ),
                       backGroundColor: ColorManager.black,
                       width: SizeConfig.width,
@@ -133,14 +140,12 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                           "ليس لدك حساب؟ ",
+                          "ليس لدك حساب؟ ",
                           style: TextStyle(
-                            color: ColorManager.darkGrey,
-                            fontSize: SizeConfig.headline4Size,
-                            fontWeight: FontWeight.w500
-                          ),
+                              color: ColorManager.darkGrey,
+                              fontSize: SizeConfig.headline4Size,
+                              fontWeight: FontWeight.w500),
                         ),
-
 
                         /// sign up text button
                         InkWell(
@@ -150,10 +155,9 @@ class LoginScreen extends StatelessWidget {
                           child: Text(
                             "تسجيل",
                             style: TextStyle(
-                              color: ColorManager.blue,
-                              fontSize: SizeConfig.headline4Size,
-                              fontWeight: FontWeight.w600
-                            ),
+                                color: ColorManager.blue,
+                                fontSize: SizeConfig.headline4Size,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                       ],
@@ -161,7 +165,8 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ),),
+            ),
+          ),
         );
       },
     );
