@@ -16,6 +16,7 @@ class AppCubit extends Cubit<AppStates>{
 
     TextEditingController signUpFullNameController = TextEditingController();
     TextEditingController signUpEmailController = TextEditingController();
+    TextEditingController signUpAddressController = TextEditingController();
     TextEditingController signUpPhoneNumberController = TextEditingController();
     TextEditingController signUpPasswordController = TextEditingController();
     TextEditingController signUpConfirmPasswordController = TextEditingController();

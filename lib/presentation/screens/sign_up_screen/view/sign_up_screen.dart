@@ -147,6 +147,20 @@ class SignUpScreen extends StatelessWidget {
                     //
                     // SizedBox(height: SizeConfig.height * .02,),
 
+
+
+                    DefaultTextField(
+                      controller: AppCubit
+                          .get(context)
+                          .signUpAddressController,
+                      hintText: 'العنوان',
+                      validator: (val) => "",
+                      keyboardType: TextInputType.streetAddress,
+                      textInputAction: TextInputAction.next,
+                      onTap: () {},
+                    ),
+                    SizedBox(height: SizeConfig.height * .02,),
+
                     DefaultTextField(
                       controller: AppCubit
                           .get(context)
