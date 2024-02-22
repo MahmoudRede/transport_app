@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transport_app/presentation/screens/order_details_screen/Widgets/order_details_row.dart';
 import 'package:transport_app/styles/app_size_config.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
 
@@ -29,84 +30,17 @@ class OrderDetailsScreen extends StatelessWidget {
               textDirection: TextDirection.rtl,
               child: Column(
                 children: [
-                  Row(
-
-                    children: [
-                    Text(
-                      "اسم الشحنة: ",
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            color: ColorManager.primaryColor,
-                          ),
-                    ),
-                    Text(
-                      "توصيل منتجات العناية بالشعر",
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        fontSize: SizeConfig.height*.02 ,
-
-                        color: ColorManager.primaryColor,
-                          ),
-                    ),
-                  ]),
-                  const Divider(),
-                  SizedBox(height:  SizeConfig.height * 0.01,),
-                  Row(
-
-                      children: [
-                        Text(
-                          "رقم الشحنة: ",
-                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            color: ColorManager.primaryColor,
-                          ),
-                        ),
-                        Text(
-                          "5521364",
-                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                            fontSize: SizeConfig.height*.02 ,
-                            color: ColorManager.primaryColor,
-                          ),
-                        ),
-                      ]),
-                  const Divider(),
-                  SizedBox(height:  SizeConfig.height * 0.01,),
-                  Row(
-
-                      children: [
-                        Text(
-                          "العنوان: ",
-                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            color: ColorManager.primaryColor,
-                          ),
-                        ),
-                        Text(
-                          "الرياض - المملكة العربية السعودية",
-                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            fontSize: SizeConfig.height*.02 ,
-                            color: ColorManager.primaryColor,
-                          ),
-                        ),
-                      ]),
-                  const Divider(),
-                  SizedBox(height:  SizeConfig.height * 0.01,),
-                  Row(
-
-                      children: [
-                        Text(
-                          "رقم الهاتف: ",
-                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            color: ColorManager.primaryColor,
-                          ),
-                        ),
-                        Text(
-                          "201554583937+",
-                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            fontSize: SizeConfig.height*.02 ,
-                            color: ColorManager.primaryColor,
-                          ),
-                        ),
-
-                      ],
-                  ),
-                  const Divider(),
+                  OrderDetailsRow(hasImage: false,  title: "اسم الشحنة: ", content: "توصيل منتجات العناية بالشعر"),
+                  SizedBox(height:  SizeConfig.height * 0.02,),
+                  OrderDetailsRow(hasImage: false,  title: "رقم الشحنة: ", content:  "5521364"),
+                  SizedBox(height:  SizeConfig.height * 0.02,),
+                  OrderDetailsRow(hasImage: false,  title: "العنوان: ", content:  "الرياض - المملكة العربية السعودية"),
+                  SizedBox(height:  SizeConfig.height * 0.02,),
+                  OrderDetailsRow(hasImage: false,  title: "رقم الجوال: ", content:  "201554583937+"),
+                  SizedBox(height:  SizeConfig.height * 0.02,),
+                  OrderDetailsRow(hasImage: true ,onTap: (){
+                    debugPrint("whatsapp");
+                  }, title: "رقم جوال العميل: ", content:  "201554583937+"),
                 ],
               ),
             )
