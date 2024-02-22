@@ -18,7 +18,7 @@ class OrderWidget extends StatelessWidget {
         );
       },
       child: Container(
-        height: SizeConfig.height * .15,
+        height: SizeConfig.height * .07,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: ColorManager.primaryColor,

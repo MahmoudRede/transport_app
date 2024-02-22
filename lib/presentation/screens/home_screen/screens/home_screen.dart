@@ -40,6 +40,7 @@ class HomeScreen extends StatelessWidget {
           return Column(
             children: [
               DefaultTabController(
+                initialIndex: 1,
                 length: 2,
                 child: TabBar(
                   onTap: (index) {
