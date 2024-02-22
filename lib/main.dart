@@ -1,16 +1,25 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
+import 'package:transport_app/firebase_options.dart';
 import 'package:transport_app/presentation/screens/Login_screen/login_screen.dart';
 import 'package:transport_app/styles/theme_manager/theme_manager.dart';
 import 'business_logic/localization_cubit/app_localization.dart';
 import 'business_logic/localization_cubit/localization_cubit.dart';
 import 'business_logic/localization_cubit/localization_states.dart';
 
-void main() {
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
