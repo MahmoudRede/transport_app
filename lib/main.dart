@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -8,18 +8,19 @@ import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/firebase_options.dart';
 import 'package:transport_app/presentation/screens/Login_screen/login_screen.dart';
 import 'package:transport_app/styles/theme_manager/theme_manager.dart';
+import 'package:transport_app/utiles/local/cash_helper.dart';
 import 'business_logic/localization_cubit/app_localization.dart';
 import 'business_logic/localization_cubit/localization_cubit.dart';
 import 'business_logic/localization_cubit/localization_states.dart';
 
 void main() async{
-
   WidgetsFlutterBinding.ensureInitialized();
-
+  await CashHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+//   to make the application in portrait mode
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (BuildContext context) => AppCubit()
+            create: (BuildContext context) => AppCubit()..getOrdersFromFirebase()
 
         ),
         BlocProvider(
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
               theme: getApplicationTheme(context),
               debugShowCheckedModeBanner: false,
               home: const LoginScreen(),
-              localizationsDelegates: const [
+              localizationsDelegates:  const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
@@ -55,14 +56,14 @@ class MyApp extends StatelessWidget {
                 DefaultCupertinoLocalizations.delegate,
               ],
               supportedLocales: const [
-                Locale("en", ""),
-                Locale("ar", ""),
+                Locale("en",""),
+                Locale("ar",""),
               ],
               locale: LocalizationCubit.get(context).appLocal,
-              localeResolutionCallback: (currentLang, supportLang) {
-                if (currentLang != null) {
-                  for (Locale locale in supportLang) {
-                    if (locale.languageCode == currentLang.languageCode) {
+              localeResolutionCallback: (currentLang , supportLang){
+                if(currentLang != null) {
+                  for(Locale locale in supportLang){
+                    if(locale.languageCode == currentLang.languageCode){
                       return currentLang;
                     }
                   }

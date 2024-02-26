@@ -6,4 +6,3 @@ class FetchLocalizationState extends LocalizationStates{}
 class ChangeToArabicState extends LocalizationStates{}
 class ChangeToEnglishState extends LocalizationStates{}
 class ChangeLanguageState extends LocalizationStates{}
-class NewState extends LocalizationStates{}

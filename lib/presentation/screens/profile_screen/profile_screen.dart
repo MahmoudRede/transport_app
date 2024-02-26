@@ -31,12 +31,16 @@ class ProfileScreen extends StatelessWidget {
               horizontal: MediaQuery.sizeOf(context).height*.05,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-
+                Image(
+                  image: const AssetImage('assets/images/man.png'),
+                  height: MediaQuery.sizeOf(context).height*.1,
+                ),
+                SizedBox(width: MediaQuery.sizeOf(context).height*.02,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('خالد الشهري',style: TextStyle(
                         color: ColorManager.textColor,
@@ -49,11 +53,7 @@ class ProfileScreen extends StatelessWidget {
                     ),),
                   ],
                 ),
-                SizedBox(width: MediaQuery.sizeOf(context).height*.02,),
-                Image(
-                  image: const AssetImage('assets/images/man.png'),
-                  height: MediaQuery.sizeOf(context).height*.1,
-                ),
+
               ],
             ),
           ),
@@ -91,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(Constants.profileTitles[index],style: TextStyle(
                                     color: ColorManager.textColor,
@@ -118,7 +118,6 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-
     );
   }
 }
