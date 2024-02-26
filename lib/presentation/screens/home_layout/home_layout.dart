@@ -26,7 +26,7 @@ class HomeLayout extends StatelessWidget {
 
             items: const [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.vertical_split), label: 'الشحنات'),
+                  icon: Icon(Icons.delivery_dining_rounded), label: 'الشحنات'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: 'البروفايل'),
             ],

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/business_logic/app_states.dart';
-import 'package:transport_app/presentation/screens/home_screen/widgets/add_order.dart';
+import 'package:transport_app/presentation/screens/home_screen/widgets/my_orders.dart';
 import 'package:transport_app/presentation/screens/home_screen/widgets/recieve_order.dart';
-
 import '../../../../styles/colors/color_manager.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,7 +26,7 @@ class HomeScreen extends StatelessWidget {
               height: MediaQuery.sizeOf(context).height * .08,
             ),
             const Text(
-              "Smart Rabit",
+              "Smart Rabbit",
               style: TextStyle(color: ColorManager.primaryColor),
             ),
           ],
@@ -74,7 +73,7 @@ class HomeScreen extends StatelessWidget {
               ),
               cubit.homeIndex == 1
                   ? const Expanded(
-                      child: AddOrderWidget(),
+                      child: MyOrders(),
                     )
                   : const Expanded(
                       child: ReceiveOrder(),
