@@ -25,10 +25,7 @@ class LoginScreen extends StatelessWidget {
           child: Scaffold(
             backgroundColor: ColorManager.white,
             appBar: AppBar(
-              iconTheme: const IconThemeData(color: ColorManager.black),
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarColor: ColorManager.white,
-                  statusBarIconBrightness: Brightness.dark),
+
               toolbarHeight: 0.0,
             ),
             body: SingleChildScrollView(
@@ -36,133 +33,170 @@ class LoginScreen extends StatelessWidget {
               child: Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: SizeConfig.height * 0.025),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: SizeConfig.height * .03,
-                    ),
-
-                    Align(
-                      alignment: Alignment.center,
-                      child: Image(
-                        height: SizeConfig.height * 0.25,
-                        width: SizeConfig.height * 0.4,
-                        image:
-                            const AssetImage('assets/images/smart-logo.jpeg'),
+                child: Form(
+                  key: AppCubit.get(context).loginFormKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: SizeConfig.height * .03,
                       ),
-                    ),
 
-                    SizedBox(
-                      height: SizeConfig.height * .01,
-                    ),
-
-                    /// text
-                    Text(
-                      'تسجيل الدخول',
-                      style: TextStyle(
-                        color: ColorManager.black,
-                        fontSize: SizeConfig.headline1Size,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: SizeConfig.height * .015,
-                    ),
-
-                    /// text
-                    Text(
-                      'أدخل رقم الهاتف للبدء في توصيل شحناتك مع Smart Rabbit',
-                      style: TextStyle(
-                        color: ColorManager.darkGrey,
-                        fontSize: SizeConfig.headline5Size,
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: SizeConfig.height * .05,
-                    ),
-
-                    /// phone number
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Expanded(
-                            flex: 1, child: CountryCodePickerWidget()),
-                        SizedBox(
-                          width: SizeConfig.height * .005,
+                      Align(
+                        alignment: Alignment.center,
+                        child: Image(
+                          height: SizeConfig.height * 0.25,
+                          width: SizeConfig.height * 0.4,
+                          image:
+                              const AssetImage('assets/images/smart-logo.jpeg'),
                         ),
-                        Expanded(
-                          flex: 3,
-                          child: DefaultTextField(
-                            onTap: () {},
-                            controller: AppCubit.get(context)
-                                .loginPhoneNumberController,
-                            hintText: 'أدخل رقم الهاتف',
-                            validator: (value) => "رقم الهاتف مطلوب",
-                            keyboardType: TextInputType.phone,
-                            textInputAction: TextInputAction.done,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
 
-                    SizedBox(
-                      height: SizeConfig.height * .05,
-                    ),
+                      SizedBox(
+                        height: SizeConfig.height * .01,
+                      ),
 
-                    /// Login button
-                    DefaultButton(
-                      onPressed: () {
-                        Get.to(const VerifyPhoneScreen(
-                            verificationId: "", phoneNumber: "", id: 1));
-                      },
-                      content: Text(
-                        "تسجيل الدخول",
+                      /// text
+                      Text(
+                        'تسجيل الدخول',
                         style: TextStyle(
-                            color: ColorManager.white,
-                            fontSize: SizeConfig.headline5Size,
-                            fontWeight: FontWeight.w600),
+                          color: ColorManager.black,
+                          fontSize: SizeConfig.headline1Size,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      backGroundColor: ColorManager.black,
-                      width: SizeConfig.width,
-                      height: SizeConfig.height * .058,
-                    ),
 
-                    SizedBox(
-                      height: SizeConfig.height * .1,
-                    ),
+                      SizedBox(
+                        height: SizeConfig.height * .015,
+                      ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "ليس لدك حساب؟ ",
-                          style: TextStyle(
-                              color: ColorManager.darkGrey,
-                              fontSize: SizeConfig.headline4Size,
-                              fontWeight: FontWeight.w500),
+                      /// text
+                      Text(
+                        'أدخل رقم الهاتف للبدء في توصيل شحناتك مع Smart Rabbit',
+                        style: TextStyle(
+                          color: ColorManager.darkGrey,
+                          fontSize: SizeConfig.headline5Size,
                         ),
+                      ),
 
-                        /// sign up text button
-                        InkWell(
-                          onTap: () {
-                            Get.to(const SignUpScreen());
-                          },
-                          child: Text(
-                            "تسجيل",
-                            style: TextStyle(
-                                color: ColorManager.blue,
-                                fontSize: SizeConfig.headline4Size,
-                                fontWeight: FontWeight.w600),
+                      SizedBox(
+                        height: SizeConfig.height * .05,
+                      ),
+
+                      /// phone number
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(
+                              SizeConfig.height * .01,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: ColorManager.border,
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                SizeConfig.height * .01,
+                              ),
+                            ),
+                            height: SizeConfig.height * .065,
+                            child: Row(
+                                children: [
+                                  Image(
+                                    height:SizeConfig.height * .03,
+                                    image: const AssetImage('assets/images/saudi.png'),
+                                  ),
+                                  SizedBox(
+                                    width: SizeConfig.height * .01,
+                                  ),
+                                  Text(
+                                    '+966',style:TextStyle(
+                                    color: ColorManager.grey,
+                                    fontSize: SizeConfig.height * .015,
+                                  ) ,
+                                  )
+                                ]
+                            ),
                           ),
+                          SizedBox(
+                            width: SizeConfig.height * .005,
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: DefaultTextField(
+                              onTap: () {},
+                              controller: AppCubit.get(context)
+                                  .loginPhoneNumberController,
+                              hintText: 'أدخل رقم الهاتف',
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'ادخل رقم الهاتف';
+                                }
+                              },
+                              keyboardType: TextInputType.phone,
+                              textInputAction: TextInputAction.done,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(
+                        height: SizeConfig.height * .05,
+                      ),
+
+                      /// Login button
+                      state is CheckUserIdLoadingState || state is SignInPhoneLoadingState?
+                      const Center(child: CircularProgressIndicator()):
+                      DefaultButton(
+                        onPressed: () {
+                          AppCubit.get(context).checkUserId(context: context, phone: AppCubit.get(context).loginPhoneNumberController.text);
+                        },
+                        content: Text(
+                          "تسجيل الدخول",
+                          style: TextStyle(
+                              color: ColorManager.white,
+                              fontSize: SizeConfig.headline5Size,
+                              fontWeight: FontWeight.w600),
                         ),
-                      ],
-                    ),
-                  ],
+                        backGroundColor: ColorManager.primaryColor,
+                        width: SizeConfig.width,
+                        height: SizeConfig.height * .058,
+                      ),
+
+                      SizedBox(
+                        height: SizeConfig.height * .1,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "ليس لدك حساب؟ ",
+                            style: TextStyle(
+                                color: ColorManager.darkGrey,
+                                fontSize: SizeConfig.headline4Size,
+                                fontWeight: FontWeight.w500),
+                          ),
+
+                          /// sign up text button
+                          InkWell(
+                            onTap: () {
+                              Get.to(const SignUpScreen());
+                            },
+                            child: Text(
+                              "تسجيل",
+                              style: TextStyle(
+                                  color: ColorManager.primaryColor,
+                                  fontSize: SizeConfig.headline4Size,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -89,7 +89,7 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                     /// text
                     Text(
                       'لقد أرسلنا لك رسالة نصية على\n'
-                          ' +966123456789 تحتوي على رمز التحقق المكوّن من ستة أرقام',
+                          '${widget.phoneNumber} تحتوي على رمز التحقق المكوّن من ستة أرقام ',
                       style: TextStyle(
                           color: ColorManager.darkGrey,
                           fontSize: SizeConfig.headline4Size
@@ -157,7 +157,8 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                         ),
                       ),
                       onPressed: () {
-                        Get.offAll(const HomeLayout());
+                        AppCubit.get(context).verifyOTPCode(id: widget.id,verificationId: widget.verificationId,phone: widget.phoneNumber, context: context);
+                        // Get.offAll(const HomeLayout());
                       },
                       backGroundColor: ColorManager.black,
                       width: SizeConfig.width,

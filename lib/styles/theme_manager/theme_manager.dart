@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
+import 'package:transport_app/styles/theme_manager/font_manager.dart';
 
 ThemeData getApplicationTheme(BuildContext context) {
   return ThemeData(
@@ -25,8 +26,8 @@ ThemeData getApplicationTheme(BuildContext context) {
           )),
       //text theme
       textTheme:  TextTheme(
-        headlineSmall: const TextStyle(
-            fontSize: 13, fontFamily: 'Nunito', color: ColorManager.black),
+        headlineSmall:  TextStyle(
+            fontSize: FontSize.headline5Size, fontFamily: 'Nunito', color: ColorManager.black),
         headlineMedium: TextStyle(
             fontSize: MediaQuery.sizeOf(context).height*.025, fontFamily: 'Nunito', color: ColorManager.black),
         headlineLarge: const TextStyle(
