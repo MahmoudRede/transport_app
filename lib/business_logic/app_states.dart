@@ -46,3 +46,5 @@ class CheckUserIdLoadingState extends AppStates{}
 class CheckUserIdSuccessState extends AppStates{}
 class CheckUserIdErrorState extends AppStates{}
 
+
+class ScanQRCodeSuccessState extends AppStates{}
