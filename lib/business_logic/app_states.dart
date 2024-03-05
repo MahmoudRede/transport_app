@@ -18,3 +18,5 @@ class UploadOrderImageSuccessState extends AppStates{}
 class UploadOrderImageErrorState extends AppStates{}
 
 class LunchToWhatsAppSuccessState extends AppStates{}
+
+class ScanQRCodeSuccessState extends AppStates{}

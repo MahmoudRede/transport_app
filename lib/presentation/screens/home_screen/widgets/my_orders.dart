@@ -38,6 +38,7 @@ class MyOrders extends StatelessWidget {
                                phoneNumber: cubit.orders[index].clientPhone,
                                orderDate: cubit.orders[index].orderDate,
                                orderNumber: cubit.orders[index].orderId,
+                               orderDetails: cubit.orders[index].orderDetails,
                              ),
                            );
                          },

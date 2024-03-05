@@ -6,12 +6,13 @@ import 'package:transport_app/styles/colors/color_manager.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   final String clientName;
-  final String clientPhone;
-  final String clientAddress;
-  final String city;
-  final String phoneNumber;
-  final String orderDate;
   final String orderNumber;
+  final String orderDate;
+  final String city;
+  final String clientAddress;
+  final String phoneNumber;
+  final String clientPhone;
+  final String orderDetails;
 
   const OrderDetailsScreen(
       {required this.clientName,
@@ -21,6 +22,7 @@ class OrderDetailsScreen extends StatelessWidget {
       required this.phoneNumber,
       required this.orderDate,
       required this.orderNumber,
+      required this.orderDetails,
       super.key});
 
   @override
@@ -194,7 +196,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     OrderDetailsRow(
                         height: SizeConfig.height * .25,
                         hasImage: false,
-                        content: ""),
+                        content: orderDetails),
                   ],
                 ),
               )

@@ -1,11 +1,13 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:transport_app/business_logic/app_states.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+ import 'package:transport_app/business_logic/app_states.dart';
 import 'package:transport_app/data/models/order_model.dart';
 import 'package:transport_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -86,6 +88,10 @@ class AppCubit extends Cubit<AppStates>{
       if (pickedFile != null) {
         orderImage = File(pickedFile.path);
         order = FileImage(orderImage!);
+        firebase_storage.FirebaseStorage.instance
+            .ref()
+            .child('orderImage/${Uri.file(orderImage!.path).pathSegments.last}')
+            .putFile(orderImage!);
         debugPrint('Path is ${pickedFile.path}');
         emit(PickOrderImageSuccessState());
       } else {
@@ -105,11 +111,13 @@ class AppCubit extends Cubit<AppStates>{
           .then((value) {
         value.ref.getDownloadURL().then((value) {
           debugPrint('Upload Success');
-          orderImagePath = value;
+          orderImagePath = orderImage!.uri.toString();
           FirebaseFirestore.instance
-              .collection('orders')
+              .collection('receivedOrders')
               .doc(CashHelper.getData(key: 'isUid'))
-              .set({'pic': '$orderImagePath'}).then((value) {
+              .set({'pic': '$orderImagePath',
+          'id': orderNumberController.text,
+          }).then((value) {
             debugPrint('Image Updates');
           });
           emit(UploadOrderImageSuccessState());
@@ -136,5 +144,14 @@ class AppCubit extends Cubit<AppStates>{
       }
     }
 
+    Future<dynamic> scanQrCode(BarcodeCapture capture, BuildContext context) async {
+      final List<Barcode> barcodes = capture.barcodes;
+      final Uint8List? image = capture.image;
+      for (final barcode in barcodes) {
+        debugPrint('Barcode found! ${barcode.rawValue}');
+        orderNumberController.text = barcode.rawValue!;
+      }
+      emit(ScanQRCodeSuccessState());
+     }
 
 }
