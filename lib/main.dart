@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/firebase_options.dart';
 import 'package:transport_app/presentation/screens/Login_screen/login_screen.dart';
+import 'package:transport_app/presentation/screens/home_layout/home_layout.dart';
 import 'package:transport_app/styles/theme_manager/theme_manager.dart';
 import 'package:transport_app/utiles/local/cash_helper.dart';
 import 'business_logic/localization_cubit/app_localization.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
               title: 'Transport App',
               theme: getApplicationTheme(context),
               debugShowCheckedModeBanner: false,
-              home: const LoginScreen(),
+              home: const HomeLayout(),
               localizationsDelegates:  const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
