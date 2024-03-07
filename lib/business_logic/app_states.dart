@@ -10,12 +10,16 @@ class GetOrdersLoadingState extends AppStates{}
 class GetOrdersSuccessState extends AppStates{}
 class GetOrdersErrorState extends AppStates{}
 
+class UpdateOrderStateLoadingState extends AppStates{}
+class UpdateOrderStateSuccessState extends AppStates{}
+class UpdateOrderStateErrorState extends AppStates{}
+
 class PickOrderImageSuccessState extends AppStates{}
 class PickOrderImageErrorState extends AppStates{}
 
-class UploadOrderImageLoadingState extends AppStates{}
-class UploadOrderImageSuccessState extends AppStates{}
-class UploadOrderImageErrorState extends AppStates{}
+class UploadReceivedOrderLoadingState extends AppStates{}
+class UploadReceivedOrderSuccessState extends AppStates{}
+class UploadReceivedOrderErrorState extends AppStates{}
 
 class LunchToWhatsAppSuccessState extends AppStates{}
 
