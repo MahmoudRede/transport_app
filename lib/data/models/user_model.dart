@@ -7,6 +7,7 @@ class UserModel {
   final String kind;
   final String personalImage;
   final String carImage;
+  final String city;
 
 
   UserModel({
@@ -18,7 +19,7 @@ class UserModel {
     required this.kind,
     required this.personalImage,
     required this.carImage,
-
+    required this.city
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -30,6 +31,7 @@ class UserModel {
       kind: json["kind"]??"",
       personalImage: json["personalImage"]??"",
       carImage: json["carImage"]??"",
+      city: json["city"]??""
 
   );
 
@@ -42,6 +44,7 @@ class UserModel {
     "kind": kind,
     "personalImage": personalImage,
     "carImage": carImage,
+    "city": city
 
   };
 }

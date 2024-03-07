@@ -52,3 +52,5 @@ class CheckUserIdErrorState extends AppStates{}
 
 
 class ScanQRCodeSuccessState extends AppStates{}
+
+class SetOrderSelectedCityStates extends AppStates{}

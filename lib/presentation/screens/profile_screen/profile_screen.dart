@@ -1,4 +1,8 @@
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:transport_app/helper/shared_preference.dart';
+import 'package:transport_app/presentation/screens/profile_screen/edit_profile_screen.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
 import '../../../constants/constants.dart';
 
@@ -8,15 +12,16 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
+
       appBar: AppBar(
-        backgroundColor: ColorManager.primaryColor,
+        backgroundColor: Colors.transparent,
         shape: const Border(
           bottom: BorderSide(color: ColorManager.white, width: 1.0),
         ),
         elevation: 0.0,
         title: const Text(
           "البروفايل",
-          style: TextStyle(color: ColorManager.white),
+          style: TextStyle(color: ColorManager.primaryColor),
         ),
         centerTitle: true,
       ),
@@ -24,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
       body: Column(
         children: [
 
-          SizedBox(height: MediaQuery.sizeOf(context).height*.05,),
+          SizedBox(height: MediaQuery.sizeOf(context).height*.01,),
 
           Padding(
             padding: EdgeInsets.symmetric(
@@ -33,21 +38,26 @@ class ProfileScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image(
-                  image: const AssetImage('assets/images/man.png'),
-                  height: MediaQuery.sizeOf(context).height*.1,
+                CircleAvatar(
+                  backgroundColor: ColorManager.primaryColor,
+                  radius: MediaQuery.sizeOf(context).height*.052,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/smart-logo.jpeg'),
+                    radius: MediaQuery.sizeOf(context).height*.05,
+                  ),
                 ),
+
                 SizedBox(width: MediaQuery.sizeOf(context).height*.02,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('خالد الشهري',style: TextStyle(
+                    Text(UserDataFromStorage.driverUserName,style: TextStyle(
                         color: ColorManager.textColor,
                         fontWeight: FontWeight.bold,
                         fontSize: MediaQuery.sizeOf(context).height*.03
                     ),),
-                    Text('info@gmail.com',style: TextStyle(
+                    Text(UserDataFromStorage.driverEmail,style: TextStyle(
                         color: ColorManager.grey,
                         fontSize: MediaQuery.sizeOf(context).height*.015
                     ),),
@@ -58,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: MediaQuery.sizeOf(context).height*.03,),
+          SizedBox(height: MediaQuery.sizeOf(context).height*.035,),
 
           Container(
             margin: EdgeInsets.symmetric(
@@ -70,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Container(
-                height: MediaQuery.sizeOf(context).height*.5,
+                height: MediaQuery.sizeOf(context).height*.3,
                 margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.sizeOf(context).height*.02,
                 ),
@@ -87,23 +97,35 @@ class ProfileScreen extends StatelessWidget {
                       return GestureDetector(
                         onTap: (){
 
+                          if(index==0){
+                            Get.to(
+                                  ()=>const EditProfileScreen(),
+                            );
+                          }
                         },
                         child: Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
+                                Image(
+                                  image: AssetImage(Constants.profileImages[index]),
+                                  height: MediaQuery.sizeOf(context).height*.017,
+                                  color: ColorManager.primaryColor,
+                                ),
+                                SizedBox(width: MediaQuery.sizeOf(context).height*.02,),
+
                                 Text(Constants.profileTitles[index],style: TextStyle(
                                     color: ColorManager.textColor,
                                     fontWeight: FontWeight.w500,
                                     fontSize: MediaQuery.sizeOf(context).height*.017
                                 ),),
-                                SizedBox(width: MediaQuery.sizeOf(context).height*.02,),
+
 
                               ],
                             ),
                             SizedBox(height: MediaQuery.sizeOf(context).height*.01,),
-                            index!=6?const Divider():Container(),
+                            index!=3?const Divider():Container(),
                           ],
                         ),
                       );
@@ -111,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
                     separatorBuilder: (context,index){
                       return SizedBox(height: MediaQuery.sizeOf(context).height*.01,);
                     },
-                    itemCount: Constants.profileTitles.length
+                    itemCount: Constants.profileImages.length
                 ),
               ),
             ),

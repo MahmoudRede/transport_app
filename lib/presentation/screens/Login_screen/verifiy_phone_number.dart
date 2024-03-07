@@ -28,14 +28,14 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    // context.read<AuthCubit>().resendOtpTimer();
+    context.read<AppCubit>().resendOtpTimer();
     super.initState();
   }
 
   @override
   void dispose() {
     // TODO: implement
-    // context.read<AuthCubit>().secondTimer!.cancel();
+    context.read<AppCubit>().secondTimer!.cancel();
     super.dispose();
   }
 
@@ -105,7 +105,11 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                         otpController: AppCubit.get(context).verifyOtpPinPutController,
                         onChanged: (val) {},
                         onSubmit: (val) {},
-                        validator: (val) =>"Enter valid code",
+                        validator: (val) {
+                          if (val!.length != 6) {
+                            return 'ادخل كود التحقق';
+                          }
+                        },
                         enabled: true,
                         length: 6
                     ),
@@ -119,7 +123,7 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                         Visibility(
                           visible: true,
                           child: Text(
-                            '0:0',
+                            '${AppCubit.get(context).second}',
                             style: TextStyle(
                               fontSize: SizeConfig.headline3Size,
                               fontWeight: FontWeight.w500,
@@ -131,14 +135,20 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                         SizedBox(width: SizeConfig.height * 0.002,),
 
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if(AppCubit.get(context).resendButton==true){
+                              AppCubit.get(context).resendVerifyFunction(context: context, phoneNumber: widget.phoneNumber).then((value) {
+                                AppCubit.get(context).resendOtpTimer();
+                              });
+                            }
+                          },
                           child: Text(
                             "إعادة أرسال الكود",
                             style: TextStyle(
-                              decoration: TextDecoration.underline,
+                              decoration: AppCubit.get(context).resendButton==false?TextDecoration.none:TextDecoration.underline,
                               fontSize: SizeConfig.headline3Size,
                               fontWeight: FontWeight.w500,
-                              color: ColorManager.primary,
+                              color: AppCubit.get(context).resendButton==false?ColorManager.grey:ColorManager.primary,
                             ),
 
                           ),
@@ -147,6 +157,8 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                     ),
 
                     /// Login button
+                    state is VerifyPhoneLoadingState?
+                    const Center(child: CircularProgressIndicator()):
                     DefaultButton(
                       content: Text(
                         "تأكيد",
@@ -157,10 +169,14 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                         ),
                       ),
                       onPressed: () {
-                        AppCubit.get(context).verifyOTPCode(id: widget.id,verificationId: widget.verificationId,phone: widget.phoneNumber, context: context);
+                        AppCubit.get(context).verifyOTPCode(
+                            id: widget.id,verificationId: widget.verificationId,
+                            phone: widget.phoneNumber,
+                            context: context
+                        );
                         // Get.offAll(const HomeLayout());
                       },
-                      backGroundColor: ColorManager.black,
+                      backGroundColor: ColorManager.primaryColor,
                       width: SizeConfig.width,
                       height: SizeConfig.height * .058,
                     ),
