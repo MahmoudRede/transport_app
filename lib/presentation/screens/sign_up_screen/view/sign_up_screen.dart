@@ -4,18 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/business_logic/app_states.dart';
+import 'package:transport_app/constants/constants.dart';
 import 'package:transport_app/presentation/screens/Login_screen/login_screen.dart';
 import 'package:transport_app/presentation/widgets/country_code_picker.dart';
 import 'package:transport_app/presentation/widgets/default_button.dart';
 import 'package:transport_app/presentation/widgets/default_text_field.dart';
 import 'package:transport_app/styles/app_size_config.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
+import 'package:transport_app/styles/theme_manager/font_manager.dart';
 
 class SignUpScreen extends StatelessWidget {
 
-  const SignUpScreen({super.key});
+   SignUpScreen({super.key});
 
-  static GlobalKey<FormState> formKey = GlobalKey<FormState>();
+   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +131,7 @@ class SignUpScreen extends StatelessWidget {
                                     width: SizeConfig.height * .01,
                                   ),
                                   Text(
-                                    '+966',style:TextStyle(
+                                    '+20',style:TextStyle(
                                     color: ColorManager.grey,
                                     fontSize: SizeConfig.height * .015,
                                   ) ,
@@ -193,7 +195,48 @@ class SignUpScreen extends StatelessWidget {
                         onTap: () {},
                       ),
 
-                      SizedBox(height: SizeConfig.height * .05,),
+                      SizedBox(height: SizeConfig.height * .025,),
+
+                      Container(
+                        height: SizeConfig.height * .06,
+                        width: SizeConfig.width,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: ColorManager.gray,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(SizeConfig.height*0.01),
+                        ),
+
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: SizeConfig.height*0.015),
+                          child: DropdownButton<String>(
+                            items: Constants.ksaCities.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            value: AppCubit.get(context).orderSelectedCity,
+                            style: TextStyle(
+                              fontSize: FontSize.headline3Size,
+                              color: ColorManager.black,
+                            ),
+                            hint: Text(
+                              'المدينة',
+                              style: TextStyle(
+                                fontSize: FontSize.headline4Size,
+                                color: ColorManager.lightGrey,
+                              ),
+                            ),
+                            onChanged:(newValue) =>AppCubit.get(context).setOrderSelectedCity(newValue!),
+                            underline: Container(),
+                            isExpanded: true,
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: SizeConfig.height * .01,),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -355,15 +398,16 @@ class SignUpScreen extends StatelessWidget {
                             AppCubit.get(context).uploadDriversInfo(
                                 fullName: AppCubit.get(context).signUpFullNameController.text,
                                 email: AppCubit.get(context).signUpEmailController.text,
-                                phoneNumber: '+966${AppCubit.get(context).signUpPhoneNumberController.text}',
+                                phoneNumber: '+20${AppCubit.get(context).signUpPhoneNumberController.text}',
                                 about: AppCubit.get(context).signUpAboutMeController.text,
                                 address: AppCubit.get(context).signUpAddressController.text,
                                 kind: 'ذكر',
                                 personalImage: '',
-                                carImage: ''
+                                carImage: '',
+                                city: AppCubit.get(context).orderSelectedCity
                             ).then((value) {
                               Get.to(
-                                  ()=>const LoginScreen(),
+                                  ()=> LoginScreen(),
                               );
                             });
                           }
@@ -399,7 +443,7 @@ class SignUpScreen extends StatelessWidget {
                           /// sign up text button
                           InkWell(
                             onTap: () {
-                              Get.to(const LoginScreen());
+                              Get.to( LoginScreen());
                             },
                             child: Text(
                               "تسجيل الدخول",

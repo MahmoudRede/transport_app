@@ -57,7 +57,7 @@ class StartScreen extends StatelessWidget {
                   children: [
                     DefaultButton(
                         onPressed: (){
-                          Get.to(const SignUpScreen());
+                          Get.to( SignUpScreen());
                         },
                         backGroundColor: ColorManager.primaryColor,
                         width: MediaQuery.sizeOf(context).width*.4,
@@ -69,7 +69,7 @@ class StartScreen extends StatelessWidget {
 
                     DefaultButton(
                         onPressed: (){
-                          Get.to(const LoginScreen());
+                          Get.to( LoginScreen());
                         },
                         backGroundColor: ColorManager.white,
                         width: MediaQuery.sizeOf(context).width*.4,

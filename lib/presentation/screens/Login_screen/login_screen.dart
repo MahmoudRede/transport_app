@@ -13,7 +13,9 @@ import 'package:transport_app/styles/app_size_config.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+   LoginScreen({super.key});
+
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                 padding:
                     EdgeInsets.symmetric(horizontal: SizeConfig.height * 0.025),
                 child: Form(
-                  key: AppCubit.get(context).loginFormKey,
+                  key:loginFormKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                                     width: SizeConfig.height * .01,
                                   ),
                                   Text(
-                                    '+966',style:TextStyle(
+                                    '+20',style:TextStyle(
                                     color: ColorManager.grey,
                                     fontSize: SizeConfig.height * .015,
                                   ) ,
@@ -151,7 +153,9 @@ class LoginScreen extends StatelessWidget {
                       const Center(child: CircularProgressIndicator()):
                       DefaultButton(
                         onPressed: () {
-                          AppCubit.get(context).checkUserId(context: context, phone: AppCubit.get(context).loginPhoneNumberController.text);
+                          if (loginFormKey.currentState!.validate()) {
+                            AppCubit.get(context).checkUserId(context: context, phone: AppCubit.get(context).loginPhoneNumberController.text);
+                          }
                         },
                         content: Text(
                           "تسجيل الدخول",
@@ -183,7 +187,7 @@ class LoginScreen extends StatelessWidget {
                           /// sign up text button
                           InkWell(
                             onTap: () {
-                              Get.to(const SignUpScreen());
+                              Get.to( SignUpScreen());
                             },
                             child: Text(
                               "تسجيل",

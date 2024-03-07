@@ -22,19 +22,47 @@ class Constants{
   ];
   static List<String> profileTitles=[
     'بياناتي',
-    'الاشعارات',
-    'اللغة',
      'اتصل بنا',
-    'شارك التطبيق',
     'تسجيل الخروج',
+    'حذف الحساب',
   ];
   static List<String> profileImages=[
     'assets/images/user_icon.png',
-    'assets/images/notification.png',
-    'assets/images/translate.png',
     'assets/images/call.png',
-    'assets/images/share.png',
     'assets/images/arrow-back.png',
+    'assets/images/delete_user.png',
+  ];
+
+  static List<String> ksaCities = [
+    'الرياض',
+    'جدة',
+    'مكة المكرمة',
+    'المدينة المنورة',
+    'الدمام',
+    'الخبر',
+    'تبوك',
+    'أبها',
+    'حائل',
+    'الطائف',
+    'القطيف',
+    'خميس مشيط',
+    'الجبيل',
+    'الخرج',
+    'عرعر',
+    'نجران',
+    'ينبع',
+    'الباحة',
+    'بريدة',
+    'القريات',
+    'الظهران',
+    'الزلفي',
+    'سكاكا',
+    'جيزان',
+    'العلا',
+    'الدوادمي',
+    'حفر الباطن',
+    'الرس',
+    'شرورة',
   ];
 
 

@@ -10,7 +10,9 @@ import 'package:transport_app/business_logic/app_states.dart';
 import 'package:transport_app/data/models/order_model.dart';
 import 'package:transport_app/data/models/user_model.dart';
 import 'package:transport_app/helper/material_navigation.dart';
+import 'package:transport_app/helper/shared_preference.dart';
 import 'package:transport_app/presentation/screens/Login_screen/verifiy_phone_number.dart';
+import 'package:transport_app/presentation/screens/home_layout/home_layout.dart';
 import 'package:transport_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:transport_app/presentation/screens/sign_up_screen/view/sign_up_screen.dart';
 import 'package:transport_app/presentation/widgets/custom_toast.dart';
@@ -38,7 +40,6 @@ class AppCubit extends Cubit<AppStates> {
 
   TextEditingController orderNumberController = TextEditingController();
 
-  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   int? selectedValue;
 
@@ -147,6 +148,7 @@ class AppCubit extends Cubit<AppStates> {
     required String kind,
     required String personalImage,
     required String carImage,
+    required String city,
   }) async {
     emit(UploadUserInfoLoadingState());
 
@@ -158,6 +160,7 @@ class AppCubit extends Cubit<AppStates> {
         about: about,
         kind: kind,
         personalImage: personalImage,
+        city: city,
         carImage: carImage);
 
     FirebaseFirestore.instance
@@ -199,17 +202,17 @@ class AppCubit extends Cubit<AppStates> {
             .doc(phone)
             .get()
             .then((value) {
+
           userModel = UserModel.fromJson(value.data()!);
 
-          CashHelper.saveData(key: 'userName', value: userModel!.userName);
-          CashHelper.saveData(key: 'email', value: userModel!.email);
-          CashHelper.saveData(key: 'phone', value: userModel!.phone);
-          CashHelper.saveData(key: 'about', value: userModel!.about);
-          CashHelper.saveData(key: 'address', value: userModel!.address);
-          CashHelper.saveData(key: 'kind', value: userModel!.kind);
-          CashHelper.saveData(key: 'carImage', value: userModel!.carImage);
-          CashHelper.saveData(
-              key: 'personalImage', value: userModel!.personalImage);
+          UserDataFromStorage.setDriverUserName(userModel!.userName);
+          UserDataFromStorage.setDriverEmail(userModel!.email);
+          UserDataFromStorage.setDriverAbout(userModel!.about);
+          UserDataFromStorage.setDriverKind(userModel!.kind);
+          UserDataFromStorage.setDriverPhone(userModel!.phone);
+          UserDataFromStorage.setDriverCarImage(userModel!.carImage);
+          UserDataFromStorage.setDriverCity(userModel!.city);
+          UserDataFromStorage.setDriverPersonalImage(userModel!.personalImage);
 
           emit(GetUserSuccessState());
         }).catchError((error) {
@@ -217,7 +220,7 @@ class AppCubit extends Cubit<AppStates> {
           emit(GetUserErrorState());
         });
 
-        customPushAndRemoveUntil(context, const HomeScreen());
+        customPushAndRemoveUntil(context, const HomeLayout());
       }
 
       emit(VerifyPhoneSuccessState());
@@ -231,48 +234,47 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   firebaseSignInFunction({required BuildContext context}) async {
-    if (loginFormKey.currentState!.validate()) {
-      emit(SignInPhoneLoadingState());
 
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+966${loginPhoneNumberController.text.trim()}',
-        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
-          await FirebaseAuth.instance
-              .signInWithCredential(phoneAuthCredential)
-              .then(
-            (value) {
-              debugPrint('Verify Code sent, verify you phone Number');
-            },
-          ).catchError((error) {
-            debugPrint("Error when Sign up : ${error.toString()}");
-          });
-          emit(SignInPhoneSuccessState());
-        },
-        codeSent: (String verificationId, int? forceResendingToken) {
-          debugPrint(
-              "number phone Login ======>+966 ${loginPhoneNumberController.text.trim()}");
-          customPushNavigator(
-              context,
-              VerifyPhoneScreen(
-                verificationId: verificationId,
-                phoneNumber: '+966${loginPhoneNumberController.text.trim()}',
-                id: 0,
-              ));
-          emit(SignInPhoneSuccessState());
-        },
-        verificationFailed: (exception) {
-          if (exception.code == 'invalid-phone-number') {
-            customToast(title: 'رقم الهاتف غير صالح', color: ColorManager.red);
-          }
-          debugPrint('Error when Sign up : ${exception.toString()}');
-          emit(SignInPhoneErrorState());
-        },
-        codeAutoRetrievalTimeout: (e) {
-          debugPrint('Sign up Token : ${e.toString()}');
-          // ShowPopUpFunctions.customToast(context: context, isTranslate: false, message: e.toString(), color: AppColor.primary);
-        },
-      );
-    }
+    emit(SignInPhoneLoadingState());
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: '+20${loginPhoneNumberController.text.trim()}',
+      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
+        await FirebaseAuth.instance
+            .signInWithCredential(phoneAuthCredential)
+            .then(
+              (value) {
+            debugPrint('Verify Code sent, verify you phone Number');
+          },
+        ).catchError((error) {
+          debugPrint("Error when Sign up : ${error.toString()}");
+        });
+        emit(SignInPhoneSuccessState());
+      },
+      codeSent: (String verificationId, int? forceResendingToken) {
+        debugPrint(
+            "number phone Login ======>+20 ${loginPhoneNumberController.text.trim()}");
+        customPushNavigator(
+            context,
+            VerifyPhoneScreen(
+              verificationId: verificationId,
+              phoneNumber: '+20${loginPhoneNumberController.text.trim()}',
+              id: 0,
+            ));
+        emit(SignInPhoneSuccessState());
+      },
+      verificationFailed: (exception) {
+        if (exception.code == 'invalid-phone-number') {
+          customToast(title: 'رقم الهاتف غير صالح', color: ColorManager.red);
+        }
+        debugPrint('Error when Sign up : ${exception.toString()}');
+        emit(SignInPhoneErrorState());
+      },
+      codeAutoRetrievalTimeout: (e) {
+        debugPrint('Sign up Token : ${e.toString()}');
+        // ShowPopUpFunctions.customToast(context: context, isTranslate: false, message: e.toString(), color: AppColor.primary);
+      },
+    );
   }
 
   resendVerifyFunction(
@@ -282,9 +284,13 @@ class AppCubit extends Cubit<AppStates> {
     second = 31;
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: "+966${loginPhoneNumberController.text.trim()}",
+      phoneNumber: "+20${loginPhoneNumberController.text.trim()}",
       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
       codeSent: (String verificationId, int? forceResendingToken) {
+        PhoneAuthProvider.credential(
+          verificationId: verificationId,
+          smsCode: verifyOtpPinPutController.text.trim(),
+        );
         // customPushReplacement(context, VerifyPhoneScreen(verificationId: verificationId));
         resendOtpTimer();
         emit(ResendCodeSuccessState());
@@ -329,7 +335,7 @@ class AppCubit extends Cubit<AppStates> {
 
     await FirebaseFirestore.instance
         .collection('Drivers')
-        .doc("+966$phone")
+        .doc("+20$phone")
         .get()
         .then((value) {
       debugPrint("${value.data()!.isEmpty}");
@@ -340,9 +346,18 @@ class AppCubit extends Cubit<AppStates> {
     }).catchError((error) {
       debugPrint("Error when get user data :================> $error");
       customToast(title: 'يجب تسجيل البيانات اولا', color: ColorManager.error);
-      customPushNavigator(context, const SignUpScreen());
+      customPushNavigator(context,  SignUpScreen());
       loginPhoneNumberController.clear();
       emit(CheckUserIdErrorState());
     });
   }
+
+
+  var orderSelectedCity = 'الرياض';
+
+  void setOrderSelectedCity(String value) {
+    orderSelectedCity = value;
+    emit(SetOrderSelectedCityStates());
+  }
+
 }
