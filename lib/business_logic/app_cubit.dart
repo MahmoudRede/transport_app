@@ -290,7 +290,7 @@ class AppCubit extends Cubit<AppStates> {
     second = 31;
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: "+966${loginPhoneNumberController.text.trim()}",
+      phoneNumber: "+20${loginPhoneNumberController.text.trim()}",
       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
       codeSent: (String verificationId, int? forceResendingToken) {
         PhoneAuthProvider.credential(
@@ -341,7 +341,7 @@ class AppCubit extends Cubit<AppStates> {
 
     await FirebaseFirestore.instance
         .collection('Drivers')
-        .doc("+966$phone")
+        .doc("+20$phone")
         .get()
         .then((value) {
       debugPrint("${value.data()!.isEmpty}");
