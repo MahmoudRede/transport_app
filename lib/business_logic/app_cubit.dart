@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:transport_app/business_logic/app_states.dart';
 import 'package:transport_app/data/models/order_model.dart';
 import 'package:transport_app/data/models/user_model.dart';
@@ -358,6 +360,57 @@ class AppCubit extends Cubit<AppStates> {
   void setOrderSelectedCity(String value) {
     orderSelectedCity = value;
     emit(SetOrderSelectedCityStates());
+  }
+
+
+  File? uploadedCarImage;
+  String uploadedCarImageUrl = "";
+  var imagePicker2 = ImagePicker();
+
+  Future <void> getCarImage() async {
+    emit(UploadCarImageLoadingState());
+    final pickedFile = await imagePicker2.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      uploadedCarImage = File(pickedFile.path);
+      FirebaseStorage.instance.ref()
+          .child('CarImages/${Uri.file(uploadedCarImage!.path)
+          .pathSegments.last}').putFile(uploadedCarImage!).then((p0){
+        p0.ref.getDownloadURL().then((value) {
+          uploadedCarImageUrl = value;
+          emit(UploadCarImageSuccessState());
+        });
+      });
+    } else {
+      debugPrint('No Image selected.');
+      emit(UploadCarImageErrorState());
+    }
+  }
+
+  File? uploadedPersonalImage;
+  String uploadedPersonalImageUrl = "";
+  var imagePicker = ImagePicker();
+
+  Future <void> getPersonalImage() async {
+    emit(UploadPersonalImageLoadingState());
+    final pickedFile = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      uploadedPersonalImage = File(pickedFile.path);
+      FirebaseStorage.instance.ref()
+          .child('CommercialRegisterImages/${Uri.file(uploadedPersonalImage!.path)
+          .pathSegments.last}').putFile(uploadedPersonalImage!).then((p0){
+        p0.ref.getDownloadURL().then((value) {
+          uploadedPersonalImageUrl = value;
+          emit(UploadPersonalImageSuccessState());
+        });
+      });
+    } else {
+      debugPrint('No Image selected.');
+      emit(UploadPersonalImageErrorState());
+    }
   }
 
 }

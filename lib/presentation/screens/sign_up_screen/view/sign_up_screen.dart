@@ -330,12 +330,20 @@ class SignUpScreen extends StatelessWidget {
                             ],
                           ),
 
+
                           DefaultButton(
-                            onPressed: () async {},
-                            backGroundColor: ColorManager.grey,
+                            onPressed: () async {
+                              AppCubit.get(context).getPersonalImage();
+                            },
+                            backGroundColor: AppCubit.get(context).uploadedPersonalImageUrl.isEmpty? ColorManager.grey:ColorManager.primaryColor,
                             width: SizeConfig.height * 0.15,
                             height: SizeConfig.height * .035,
-                            content: Text(
+                            content:  state is UploadPersonalImageLoadingState?
+                            const Center(
+                              child: CircularProgressIndicator(
+                                color: ColorManager.white,
+                              ),
+                             ): Text(
                               "أضافة",
                               style: TextStyle(
                                 color: ColorManager.white,
@@ -367,12 +375,20 @@ class SignUpScreen extends StatelessWidget {
                             ],
                           ),
 
+
                           DefaultButton(
-                            onPressed: () async {},
-                            backGroundColor: ColorManager.grey,
+                            onPressed: () async {
+                              AppCubit.get(context).getCarImage();
+                            },
+                            backGroundColor: AppCubit.get(context).uploadedCarImageUrl.isEmpty? ColorManager.grey:ColorManager.primaryColor,
                             width: SizeConfig.height * 0.15,
                             height: SizeConfig.height * .035,
-                            content: Text(
+                            content: state is UploadCarImageLoadingState?
+                            const Center(
+                              child: CircularProgressIndicator(
+                                color: ColorManager.white,
+                              ),
+                             ):Text(
                               "أضافة",
                               style: TextStyle(
                                 color: ColorManager.white,
@@ -402,8 +418,8 @@ class SignUpScreen extends StatelessWidget {
                                 about: AppCubit.get(context).signUpAboutMeController.text,
                                 address: AppCubit.get(context).signUpAddressController.text,
                                 kind: 'ذكر',
-                                personalImage: '',
-                                carImage: '',
+                                personalImage: AppCubit.get(context).uploadedPersonalImageUrl,
+                                carImage: AppCubit.get(context).uploadedCarImageUrl,
                                 city: AppCubit.get(context).orderSelectedCity
                             ).then((value) {
                               Get.to(

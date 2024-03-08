@@ -54,3 +54,11 @@ class CheckUserIdErrorState extends AppStates{}
 class ScanQRCodeSuccessState extends AppStates{}
 
 class SetOrderSelectedCityStates extends AppStates{}
+
+class UploadCarImageSuccessState extends AppStates{}
+class UploadCarImageErrorState extends AppStates{}
+class UploadCarImageLoadingState extends AppStates{}
+
+class UploadPersonalImageSuccessState extends AppStates{}
+class UploadPersonalImageErrorState extends AppStates{}
+class UploadPersonalImageLoadingState extends AppStates{}
