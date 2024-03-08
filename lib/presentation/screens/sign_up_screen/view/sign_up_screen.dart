@@ -120,7 +120,7 @@ class SignUpScreen extends StatelessWidget {
                                 SizeConfig.height * .01,
                               ),
                             ),
-                            height: SizeConfig.height * .065,
+                            height: SizeConfig.height * .06,
                             child: Row(
                                 children: [
                                   Image(

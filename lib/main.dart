@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             return GetMaterialApp(
-              title: 'Transport App',
+              title: 'Smart Rabbit Drivers',
               theme: getApplicationTheme(context),
               debugShowCheckedModeBanner: false,
               home: const SplashScreen(),

@@ -2,7 +2,7 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
 
     <application
-        android:label="transport_app"
+        android:label="Smart Rabbit Drivers"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

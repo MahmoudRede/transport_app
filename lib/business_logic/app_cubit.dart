@@ -290,7 +290,7 @@ class AppCubit extends Cubit<AppStates> {
     second = 31;
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: "+20${loginPhoneNumberController.text.trim()}",
+      phoneNumber: "+966${loginPhoneNumberController.text.trim()}",
       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
       codeSent: (String verificationId, int? forceResendingToken) {
         PhoneAuthProvider.credential(
@@ -341,7 +341,7 @@ class AppCubit extends Cubit<AppStates> {
 
     await FirebaseFirestore.instance
         .collection('Drivers')
-        .doc("+20$phone")
+        .doc("+966$phone")
         .get()
         .then((value) {
       debugPrint("${value.data()!.isEmpty}");
@@ -407,7 +407,7 @@ class AppCubit extends Cubit<AppStates> {
       FirebaseStorage.instance
           .ref()
           .child(
-              'CommercialRegisterImages/${Uri.file(uploadedPersonalImage!.path).pathSegments.last}')
+              'PersonalImages/${Uri.file(uploadedPersonalImage!.path).pathSegments.last}')
           .putFile(uploadedPersonalImage!)
           .then((p0) {
         p0.ref.getDownloadURL().then((value) {
