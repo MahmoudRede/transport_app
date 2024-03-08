@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/business_logic/app_states.dart';
+import 'package:transport_app/helper/shared_preference.dart';
 import 'package:transport_app/presentation/screens/order_details_screen/screen/order_details_screen.dart';
 import 'package:transport_app/styles/app_size_config.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
@@ -24,7 +26,8 @@ class MyOrders extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-             Expanded(
+            cubit.orderModel?.endClientCity == UserDataFromStorage.driverCity ?
+            Expanded(
                child: ListView.separated(
                    itemBuilder: (context,index){
                      return GestureDetector(
@@ -150,14 +153,28 @@ class MyOrders extends StatelessWidget {
                            ]
                          ),
                        ),
-                     );
+                     ) ;
                     },
                    separatorBuilder: (context,index){
                      return SizedBox(height: SizeConfig.height*.02,);
                    },
                    itemCount: cubit.orders.length
                ),
-             ),
+             )
+            :Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Lottie.asset(
+                  'assets/icons/empty.json',
+                  height: SizeConfig.height*.4,
+                ),
+                Text('عفواً لا يوجد طلبات في منطقتك حالياً',style: TextStyle(
+                    color: ColorManager.primaryColor,
+                    fontSize: SizeConfig.height*.018,
+                    fontWeight: FontWeight.bold
+                ),),
+              ],
+            ),
           ],
         ),
       ),

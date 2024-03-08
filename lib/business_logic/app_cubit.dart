@@ -21,7 +21,6 @@ import 'package:transport_app/presentation/widgets/custom_toast.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../presentation/screens/home_screen/screens/home_screen.dart';
-import '../utiles/local/cash_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(InitialState());
@@ -41,7 +40,6 @@ class AppCubit extends Cubit<AppStates> {
   TextEditingController signUpAboutMeController = TextEditingController();
 
   TextEditingController orderNumberController = TextEditingController();
-
 
   int? selectedValue;
 
@@ -78,8 +76,7 @@ class AppCubit extends Cubit<AppStates> {
 
         /// TODO replace the client id with his city
         .collection('orders')
-        // .where("endClientQuarter",
-        //     isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where("endClientCity", isEqualTo: UserDataFromStorage.driverCity)
         .get()
         .then((value) {
       for (var element in value.docs) {
@@ -96,18 +93,27 @@ class AppCubit extends Cubit<AppStates> {
   /// upload received orders
 
   /// TODO Add client details with the received order
-  Future<void> uploadReceivedOrders(String orderId) async {
+  Future<void> uploadReceivedOrders({
+    required String orderId,
+   required String clientName,
+   required String clientPhoneNumber,
+   required String clientAddress,
+    required String clientCity,
+   required String personalImage,
+   required String carImage,
+  }) async {
     emit(UploadReceivedOrderLoadingState());
     await FirebaseFirestore.instance
         .collection('receivedOrders')
         .doc(orderId)
         .set({
       'orderId': orderId,
-      'clientName': "",
-      'clientPhoneNumber': "",
-      'clientAddress': "",
-      'clientQuarter': "",
-      'clientCity': "",
+      'clientName': clientName,
+      'clientPhoneNumber': clientPhoneNumber,
+      'clientAddress': clientAddress,
+      'carImage': carImage,
+      'personalImage': personalImage,
+      'clientCity': clientCity,
     }).then((value) {
       emit(UploadReceivedOrderSuccessState());
     }).catchError((error) {
@@ -204,7 +210,6 @@ class AppCubit extends Cubit<AppStates> {
             .doc(phone)
             .get()
             .then((value) {
-
           userModel = UserModel.fromJson(value.data()!);
 
           UserDataFromStorage.setDriverUserName(userModel!.userName);
@@ -236,7 +241,6 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   firebaseSignInFunction({required BuildContext context}) async {
-
     emit(SignInPhoneLoadingState());
 
     await FirebaseAuth.instance.verifyPhoneNumber(
@@ -245,7 +249,7 @@ class AppCubit extends Cubit<AppStates> {
         await FirebaseAuth.instance
             .signInWithCredential(phoneAuthCredential)
             .then(
-              (value) {
+          (value) {
             debugPrint('Verify Code sent, verify you phone Number');
           },
         ).catchError((error) {
@@ -348,12 +352,11 @@ class AppCubit extends Cubit<AppStates> {
     }).catchError((error) {
       debugPrint("Error when get user data :================> $error");
       customToast(title: 'يجب تسجيل البيانات اولا', color: ColorManager.error);
-      customPushNavigator(context,  SignUpScreen());
+      customPushNavigator(context, SignUpScreen());
       loginPhoneNumberController.clear();
       emit(CheckUserIdErrorState());
     });
   }
-
 
   var orderSelectedCity = 'الرياض';
 
@@ -362,21 +365,23 @@ class AppCubit extends Cubit<AppStates> {
     emit(SetOrderSelectedCityStates());
   }
 
-
   File? uploadedCarImage;
   String uploadedCarImageUrl = "";
   var imagePicker2 = ImagePicker();
 
-  Future <void> getCarImage() async {
+  Future<void> getCarImage() async {
     emit(UploadCarImageLoadingState());
     final pickedFile = await imagePicker2.pickImage(
       source: ImageSource.gallery,
     );
     if (pickedFile != null) {
       uploadedCarImage = File(pickedFile.path);
-      FirebaseStorage.instance.ref()
-          .child('CarImages/${Uri.file(uploadedCarImage!.path)
-          .pathSegments.last}').putFile(uploadedCarImage!).then((p0){
+      FirebaseStorage.instance
+          .ref()
+          .child(
+              'CarImages/${Uri.file(uploadedCarImage!.path).pathSegments.last}')
+          .putFile(uploadedCarImage!)
+          .then((p0) {
         p0.ref.getDownloadURL().then((value) {
           uploadedCarImageUrl = value;
           emit(UploadCarImageSuccessState());
@@ -392,16 +397,19 @@ class AppCubit extends Cubit<AppStates> {
   String uploadedPersonalImageUrl = "";
   var imagePicker = ImagePicker();
 
-  Future <void> getPersonalImage() async {
+  Future<void> getPersonalImage() async {
     emit(UploadPersonalImageLoadingState());
     final pickedFile = await imagePicker.pickImage(
       source: ImageSource.gallery,
     );
     if (pickedFile != null) {
       uploadedPersonalImage = File(pickedFile.path);
-      FirebaseStorage.instance.ref()
-          .child('CommercialRegisterImages/${Uri.file(uploadedPersonalImage!.path)
-          .pathSegments.last}').putFile(uploadedPersonalImage!).then((p0){
+      FirebaseStorage.instance
+          .ref()
+          .child(
+              'CommercialRegisterImages/${Uri.file(uploadedPersonalImage!.path).pathSegments.last}')
+          .putFile(uploadedPersonalImage!)
+          .then((p0) {
         p0.ref.getDownloadURL().then((value) {
           uploadedPersonalImageUrl = value;
           emit(UploadPersonalImageSuccessState());
@@ -412,5 +420,4 @@ class AppCubit extends Cubit<AppStates> {
       emit(UploadPersonalImageErrorState());
     }
   }
-
 }
