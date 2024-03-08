@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/business_logic/app_states.dart';
+import 'package:transport_app/helper/shared_preference.dart';
+import 'package:transport_app/presentation/screens/Login_screen/login_screen.dart';
+import 'package:transport_app/presentation/screens/home_layout/home_layout.dart';
 import 'package:transport_app/presentation/screens/on_boarding_screen/screen/on_boarding_screen.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
 
@@ -19,10 +22,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(const Duration(seconds: 3),()async{
 
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-       const OnBoarding()
-      ), (Route<dynamic> route) => false);
-
+      if(UserDataFromStorage.userIsGuest == false && UserDataFromStorage.onBoardingIsOpen == true){
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+        const HomeLayout()
+        ), (Route<dynamic> route) => false);
+      }else if(UserDataFromStorage.userIsGuest == true && UserDataFromStorage.onBoardingIsOpen == false){
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const OnBoarding()
+        ), (Route<dynamic> route) => false);
+      }else{
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginScreen()
+        ), (Route<dynamic> route) =>false);
+     }
     });
 
     super.initState();

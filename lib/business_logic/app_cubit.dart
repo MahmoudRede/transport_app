@@ -72,9 +72,8 @@ class AppCubit extends Cubit<AppStates> {
   /// get orders depending on user city
   Future<void> getOrdersFromFirebase() async {
     emit(GetOrdersLoadingState());
+    orders = [];
     await FirebaseFirestore.instance
-
-        /// TODO replace the client id with his city
         .collection('orders')
         .where("endClientCity", isEqualTo: UserDataFromStorage.driverCity)
         .get()
@@ -95,12 +94,12 @@ class AppCubit extends Cubit<AppStates> {
   /// TODO Add client details with the received order
   Future<void> uploadReceivedOrders({
     required String orderId,
-   required String clientName,
-   required String clientPhoneNumber,
-   required String clientAddress,
+    required String clientName,
+    required String clientPhoneNumber,
+    required String clientAddress,
     required String clientCity,
-   required String personalImage,
-   required String carImage,
+    required String personalImage,
+    required String carImage,
   }) async {
     emit(UploadReceivedOrderLoadingState());
     await FirebaseFirestore.instance

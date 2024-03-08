@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:transport_app/business_logic/app_cubit.dart';
 import 'package:transport_app/business_logic/app_states.dart';
+import 'package:transport_app/helper/shared_preference.dart';
 import 'package:transport_app/presentation/screens/home_layout/home_layout.dart';
 import 'package:transport_app/presentation/widgets/custom_pin_put_widget.dart';
 import 'package:transport_app/presentation/widgets/default_button.dart';
@@ -174,6 +175,7 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                             phone: widget.phoneNumber,
                             context: context
                         );
+                        UserDataFromStorage.setUserIsGuest(false);
                         // Get.offAll(const HomeLayout());
                       },
                       backGroundColor: ColorManager.primaryColor,
