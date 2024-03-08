@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transport_app/business_logic/app_states.dart';
+import 'package:transport_app/helper/shared_preference.dart';
 import 'package:transport_app/presentation/screens/home_screen/widgets/qr_code_scan.dart';
 import 'package:transport_app/presentation/widgets/custom_toast.dart';
 import 'package:transport_app/presentation/widgets/default_button.dart';
@@ -88,21 +89,39 @@ class _ReceiveOrderState extends State<ReceiveOrder> {
                                 color: ColorManager.error,
                               );
                             } else {
-                              cubit.updateOrderState(
-                                  cubit.orderNumberController.text).then((value) {
-                                cubit.uploadReceivedOrders(cubit.orderNumberController.text);
+                              cubit
+                                  .updateOrderState(
+                                      cubit.orderNumberController.text)
+                                  .then((value) {
+                                cubit.uploadReceivedOrders(
+                                  orderId: cubit.orderNumberController.text,
+                                  clientName:
+                                      UserDataFromStorage.driverUserName,
+                                  clientPhoneNumber:
+                                      UserDataFromStorage.driverPhone,
+                                  clientAddress:
+                                      UserDataFromStorage.driverAddress,
+                                  clientCity: UserDataFromStorage.driverCity,
+                                  personalImage:
+                                      UserDataFromStorage.driverPersonalImage,
+                                  carImage: UserDataFromStorage.driverCarImage,
+                                );
                                 cubit.orderNumberController.clear();
-                                customToast(title: "تم استلام الشحنة بنجاح", color: Colors.green,);
+                                customToast(
+                                  title: "تم استلام الشحنة بنجاح",
+                                  color: Colors.green,
+                                );
                               });
                             }
                           },
                           backGroundColor: ColorManager.primaryColor,
                           height: MediaQuery.sizeOf(context).height * .06,
                           width: double.infinity,
-                          content: const Text("تأكيد الاستلام",
-                              style: TextStyle(
-                                color: ColorManager.white,
-                              ),
+                          content: const Text(
+                            "تأكيد الاستلام",
+                            style: TextStyle(
+                              color: ColorManager.white,
+                            ),
                           ),
                         ),
                 ],
