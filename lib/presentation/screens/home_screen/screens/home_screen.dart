@@ -44,6 +44,7 @@ class HomeScreen extends StatelessWidget {
                 child: TabBar(
                   onTap: (index) {
                     cubit.changeHomeIndex(index);
+                    cubit.getOrdersFromFirebase();
                   },
                   physics: const BouncingScrollPhysics(),
                   dividerColor: ColorManager.gray,

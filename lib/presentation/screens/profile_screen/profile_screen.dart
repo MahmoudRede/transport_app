@@ -1,7 +1,9 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transport_app/helper/shared_preference.dart';
+import 'package:transport_app/presentation/screens/Login_screen/login_screen.dart';
 import 'package:transport_app/presentation/screens/profile_screen/edit_profile_screen.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
 import '../../../constants/constants.dart';
@@ -101,6 +103,10 @@ class ProfileScreen extends StatelessWidget {
                             Get.to(
                                   ()=>const EditProfileScreen(),
                             );
+                          }if(index==2){
+                            FirebaseAuth.instance.signOut();
+                             Get.offAll(LoginScreen());
+                             UserDataFromStorage.removeDataFromStorage('driverPhone');
                           }
                         },
                         child: Column(

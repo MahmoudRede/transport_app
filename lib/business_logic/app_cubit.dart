@@ -72,9 +72,8 @@ class AppCubit extends Cubit<AppStates> {
   /// get orders depending on user city
   Future<void> getOrdersFromFirebase() async {
     emit(GetOrdersLoadingState());
+    orders = [];
     await FirebaseFirestore.instance
-
-        /// TODO replace the client id with his city
         .collection('orders')
         .where("endClientCity", isEqualTo: UserDataFromStorage.driverCity)
         .get()
@@ -95,12 +94,12 @@ class AppCubit extends Cubit<AppStates> {
   /// TODO Add client details with the received order
   Future<void> uploadReceivedOrders({
     required String orderId,
-   required String clientName,
-   required String clientPhoneNumber,
-   required String clientAddress,
+    required String clientName,
+    required String clientPhoneNumber,
+    required String clientAddress,
     required String clientCity,
-   required String personalImage,
-   required String carImage,
+    required String personalImage,
+    required String carImage,
   }) async {
     emit(UploadReceivedOrderLoadingState());
     await FirebaseFirestore.instance
@@ -244,7 +243,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(SignInPhoneLoadingState());
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+20${loginPhoneNumberController.text.trim()}',
+      phoneNumber: '+966${loginPhoneNumberController.text.trim()}',
       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
         await FirebaseAuth.instance
             .signInWithCredential(phoneAuthCredential)
@@ -259,12 +258,12 @@ class AppCubit extends Cubit<AppStates> {
       },
       codeSent: (String verificationId, int? forceResendingToken) {
         debugPrint(
-            "number phone Login ======>+20 ${loginPhoneNumberController.text.trim()}");
+            "number phone Login ======>+966 ${loginPhoneNumberController.text.trim()}");
         customPushNavigator(
             context,
             VerifyPhoneScreen(
               verificationId: verificationId,
-              phoneNumber: '+20${loginPhoneNumberController.text.trim()}',
+              phoneNumber: '+966${loginPhoneNumberController.text.trim()}',
               id: 0,
             ));
         emit(SignInPhoneSuccessState());
@@ -290,7 +289,7 @@ class AppCubit extends Cubit<AppStates> {
     second = 31;
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: "+20${loginPhoneNumberController.text.trim()}",
+      phoneNumber: "+966${loginPhoneNumberController.text.trim()}",
       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
       codeSent: (String verificationId, int? forceResendingToken) {
         PhoneAuthProvider.credential(
@@ -341,7 +340,7 @@ class AppCubit extends Cubit<AppStates> {
 
     await FirebaseFirestore.instance
         .collection('Drivers')
-        .doc("+20$phone")
+        .doc("+966$phone")
         .get()
         .then((value) {
       debugPrint("${value.data()!.isEmpty}");
@@ -420,4 +419,29 @@ class AppCubit extends Cubit<AppStates> {
       emit(UploadPersonalImageErrorState());
     }
   }
+
+  Future<void> deleteUser({
+    required String driverPhone,
+    required context,
+  }) async {
+    emit(DeleteUserLoadingState());
+
+    FirebaseFirestore.instance
+        .collection('Drivers')
+        .doc(driverPhone)
+        .delete()
+        .then((value) {
+      UserDataFromStorage.removeDataFromStorage('driverPhone');
+      customToast(title: "تم حذف حسابك بنجاح", color: Colors.red.shade700);
+
+      debugPrint('Account Deleted Successfully');
+
+      emit(DeleteUserSuccessState());
+    }).catchError((error) {
+      debugPrint('Error in DeleteUser is ${error.toString()}');
+      emit(DeleteUserErrorState());
+    });
+  }
+
+
 }

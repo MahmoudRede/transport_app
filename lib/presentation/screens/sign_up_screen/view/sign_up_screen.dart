@@ -131,7 +131,7 @@ class SignUpScreen extends StatelessWidget {
                                     width: SizeConfig.height * .01,
                                   ),
                                   Text(
-                                    '+20',style:TextStyle(
+                                    '+966',style:TextStyle(
                                     color: ColorManager.grey,
                                     fontSize: SizeConfig.height * .015,
                                   ) ,
@@ -414,7 +414,7 @@ class SignUpScreen extends StatelessWidget {
                             AppCubit.get(context).uploadDriversInfo(
                                 fullName: AppCubit.get(context).signUpFullNameController.text,
                                 email: AppCubit.get(context).signUpEmailController.text,
-                                phoneNumber: '+20${AppCubit.get(context).signUpPhoneNumberController.text}',
+                                phoneNumber: '+966${AppCubit.get(context).signUpPhoneNumberController.text}',
                                 about: AppCubit.get(context).signUpAboutMeController.text,
                                 address: AppCubit.get(context).signUpAddressController.text,
                                 kind: 'ذكر',
