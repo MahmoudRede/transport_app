@@ -13,7 +13,7 @@ import 'package:transport_app/styles/app_size_config.dart';
 import 'package:transport_app/styles/colors/color_manager.dart';
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
+  LoginScreen({super.key});
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
@@ -27,7 +27,6 @@ class LoginScreen extends StatelessWidget {
           child: Scaffold(
             backgroundColor: ColorManager.white,
             appBar: AppBar(
-
               toolbarHeight: 0.0,
             ),
             body: SingleChildScrollView(
@@ -36,7 +35,7 @@ class LoginScreen extends StatelessWidget {
                 padding:
                     EdgeInsets.symmetric(horizontal: SizeConfig.height * 0.025),
                 child: Form(
-                  key:loginFormKey,
+                  key: loginFormKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,23 +103,23 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                             height: SizeConfig.height * .06,
-                            child: Row(
-                                children: [
-                                  Image(
-                                    height:SizeConfig.height * .03,
-                                    image: const AssetImage('assets/images/saudi.png'),
-                                  ),
-                                  SizedBox(
-                                    width: SizeConfig.height * .01,
-                                  ),
-                                  Text(
-                                    '+20',style:TextStyle(
-                                    color: ColorManager.grey,
-                                    fontSize: SizeConfig.height * .015,
-                                  ) ,
-                                  )
-                                ]
-                            ),
+                            child: Row(children: [
+                              Image(
+                                height: SizeConfig.height * .03,
+                                image:
+                                    const AssetImage('assets/images/saudi.png'),
+                              ),
+                              SizedBox(
+                                width: SizeConfig.height * .01,
+                              ),
+                              Text(
+                                '+966',
+                                style: TextStyle(
+                                  color: ColorManager.grey,
+                                  fontSize: SizeConfig.height * .015,
+                                ),
+                              )
+                            ]),
                           ),
                           SizedBox(
                             width: SizeConfig.height * .005,
@@ -149,25 +148,33 @@ class LoginScreen extends StatelessWidget {
                       ),
 
                       /// Login button
-                      state is CheckUserIdLoadingState || state is SignInPhoneLoadingState?
-                      const Center(child: CircularProgressIndicator()):
-                      DefaultButton(
-                        onPressed: () {
-                          if (loginFormKey.currentState!.validate()) {
-                            AppCubit.get(context).checkUserId(context: context, phone: AppCubit.get(context).loginPhoneNumberController.text);
-                          }
-                        },
-                        content: Text(
-                          "تسجيل الدخول",
-                          style: TextStyle(
-                              color: ColorManager.white,
-                              fontSize: SizeConfig.headline5Size,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        backGroundColor: ColorManager.primaryColor,
-                        width: SizeConfig.width,
-                        height: SizeConfig.height * .058,
-                      ),
+                      state is CheckUserIdLoadingState ||
+                              state is SignInPhoneLoadingState
+                          ? const Center(child: CircularProgressIndicator())
+                          : DefaultButton(
+                              onPressed: () {
+                                if (loginFormKey.currentState!.validate()) {
+                                  AppCubit.get(context).checkUserId(
+                                      context: context,
+                                      phone: AppCubit.get(context)
+                                          .loginPhoneNumberController
+                                          .text).then((value) {
+                                    AppCubit.get(context)
+                                        .loginPhoneNumberController.clear();
+                                  });
+                                }
+                              },
+                              content: Text(
+                                "تسجيل الدخول",
+                                style: TextStyle(
+                                    color: ColorManager.white,
+                                    fontSize: SizeConfig.headline5Size,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              backGroundColor: ColorManager.primaryColor,
+                              width: SizeConfig.width,
+                              height: SizeConfig.height * .058,
+                            ),
 
                       SizedBox(
                         height: SizeConfig.height * .1,
@@ -187,7 +194,7 @@ class LoginScreen extends StatelessWidget {
                           /// sign up text button
                           InkWell(
                             onTap: () {
-                              Get.to( SignUpScreen());
+                              Get.to(SignUpScreen());
                             },
                             child: Text(
                               "تسجيل",

@@ -243,7 +243,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(SignInPhoneLoadingState());
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+20${loginPhoneNumberController.text.trim()}',
+      phoneNumber: '+966${loginPhoneNumberController.text.trim()}',
       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
         await FirebaseAuth.instance
             .signInWithCredential(phoneAuthCredential)
@@ -258,12 +258,12 @@ class AppCubit extends Cubit<AppStates> {
       },
       codeSent: (String verificationId, int? forceResendingToken) {
         debugPrint(
-            "number phone Login ======>+20 ${loginPhoneNumberController.text.trim()}");
+            "number phone Login ======>+966 ${loginPhoneNumberController.text.trim()}");
         customPushNavigator(
             context,
             VerifyPhoneScreen(
               verificationId: verificationId,
-              phoneNumber: '+20${loginPhoneNumberController.text.trim()}',
+              phoneNumber: '+966${loginPhoneNumberController.text.trim()}',
               id: 0,
             ));
         emit(SignInPhoneSuccessState());
@@ -289,7 +289,7 @@ class AppCubit extends Cubit<AppStates> {
     second = 31;
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: "+20${loginPhoneNumberController.text.trim()}",
+      phoneNumber: "+966${loginPhoneNumberController.text.trim()}",
       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
       codeSent: (String verificationId, int? forceResendingToken) {
         PhoneAuthProvider.credential(
@@ -340,7 +340,7 @@ class AppCubit extends Cubit<AppStates> {
 
     await FirebaseFirestore.instance
         .collection('Drivers')
-        .doc("+20$phone")
+        .doc("+966$phone")
         .get()
         .then((value) {
       debugPrint("${value.data()!.isEmpty}");
@@ -419,4 +419,29 @@ class AppCubit extends Cubit<AppStates> {
       emit(UploadPersonalImageErrorState());
     }
   }
+
+  Future<void> deleteUser({
+    required String driverPhone,
+    required context,
+  }) async {
+    emit(DeleteUserLoadingState());
+
+    FirebaseFirestore.instance
+        .collection('Drivers')
+        .doc(driverPhone)
+        .delete()
+        .then((value) {
+      UserDataFromStorage.removeDataFromStorage('driverPhone');
+      customToast(title: "تم حذف حسابك بنجاح", color: Colors.red.shade700);
+
+      debugPrint('Account Deleted Successfully');
+
+      emit(DeleteUserSuccessState());
+    }).catchError((error) {
+      debugPrint('Error in DeleteUser is ${error.toString()}');
+      emit(DeleteUserErrorState());
+    });
+  }
+
+
 }

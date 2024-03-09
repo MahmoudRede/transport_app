@@ -62,3 +62,7 @@ class UploadCarImageLoadingState extends AppStates{}
 class UploadPersonalImageSuccessState extends AppStates{}
 class UploadPersonalImageErrorState extends AppStates{}
 class UploadPersonalImageLoadingState extends AppStates{}
+
+class DeleteUserLoadingState extends AppStates{}
+class DeleteUserSuccessState extends AppStates{}
+class DeleteUserErrorState extends AppStates{}

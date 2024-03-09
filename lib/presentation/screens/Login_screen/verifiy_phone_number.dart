@@ -176,7 +176,8 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                             context: context
                         );
                         UserDataFromStorage.setUserIsGuest(false);
-                        // Get.offAll(const HomeLayout());
+                        Get.offAll(const HomeLayout());
+                        AppCubit.get(context).verifyOtpPinPutController.clear();
                       },
                       backGroundColor: ColorManager.primaryColor,
                       width: SizeConfig.width,
